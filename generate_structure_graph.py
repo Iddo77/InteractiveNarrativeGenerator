@@ -32,7 +32,9 @@ def create_structure_graph(num_models=1):
 def generate_dot(graph_data):
     G = nx.DiGraph()
     for edge in graph_data:
-        G.add_edge(edge[0], edge[1])
+        start = 'S' if edge[0] == 'start' else edge[0]
+        end = f'E{edge[1][-2]}' if edge[1].startswith('end') else edge[1]
+        G.add_edge(start, end)
 
     write_dot(G, "output/graph.dot")
     pos = graphviz_layout(G, prog='dot')
