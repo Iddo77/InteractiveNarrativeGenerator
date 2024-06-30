@@ -4,7 +4,7 @@
 
 start_vertex(start).
 choice_vertex(C) :- C = 1..num_choice_vertices.
-end_vertex(E) :- E = num_choice_vertices+1..num_choice_vertices+num_end_vertices.
+end_vertex(end(E)) :- E = 1..num_end_vertices.
 % achieved: the correct number of vertices is created based on the input
 
 vertex(V) :- start_vertex(V).
@@ -22,7 +22,6 @@ vertex(V) :- end_vertex(V).
 :- edge(E, _), end_vertex(E).
 % achieved: end vertices have no outgoing edges
 
-% Define reachability and ensure no cycles
 path(X, Y) :- edge(X, Y).
 path(X, Z) :- path(X, Y), edge(Y, Z).
 :- path(X, Y), path(Y, X).
