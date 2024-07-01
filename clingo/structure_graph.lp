@@ -1,8 +1,8 @@
 % input: number of end vertices and choice vertices
-#const num_end_vertices = 8.
-#const num_choice_vertices = 32.
+#const num_end_vertices = 5.
 #const min_path_length = 5.
 #const max_path_length = 10.
+#const num_choice_vertices = (max_path_length - min_path_length) * num_end_vertices.
 
 start_vertex(start).
 choice_vertex(C) :- C = 1..num_choice_vertices.
@@ -22,6 +22,7 @@ vertex(V) :- end_vertex(V).
 % achieved: each choice vertex has 4 outgoing edges
 
 in_degree(V, N) :- choice_vertex(V), N = #count{X : edge(X, V)}.
+in_degree(V, N) :- end_vertex(V), N = #count{X : edge(X, V)}.
 :- in_degree(V, N), N > 4.
 % achieved: choice vertices have no more incoming edges than outgoing edges
 
