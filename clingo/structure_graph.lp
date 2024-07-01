@@ -21,6 +21,10 @@ vertex(V) :- end_vertex(V).
 {edge(C, Y) : vertex(Y)} = 4 :- choice_vertex(C).
 % achieved: each choice vertex has 4 outgoing edges
 
+in_degree(V, N) :- choice_vertex(V), N = #count{X : edge(X, V)}.
+:- in_degree(V, N), N > 4.
+% achieved: choice vertices have no more incoming edges than outgoing edges
+
 :- edge(E, _), end_vertex(E).
 % achieved: end vertices have no outgoing edges
 
