@@ -38,7 +38,8 @@ def generate_dot(graph_data):
 
     write_dot(G, "output/graph.dot")
     pos = graphviz_layout(G, prog='dot')
-    nx.draw(G, pos, with_labels=True, arrows=True, node_color='white', edgecolors='black', node_size=450)
+    nx.draw(G, pos, with_labels=True, arrows=True, node_color='white', edgecolors='black', node_size=450,
+            connectionstyle='arc3, rad = 0.04')
     plt.savefig("output/graph.png")
     plt.show()
 
