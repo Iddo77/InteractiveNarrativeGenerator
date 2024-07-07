@@ -22,15 +22,15 @@ entity(X) :- item(X).
 person(protagonist).
 % achieved: every story needs a protagonist, which is a person
 
-state(owns, X, Y) :- person(X), item(Y).
-state(emotion, X, S) :- person(X), emotion_status(S).
-state(relation, X, S) :- person(X), X != protagonist, relation_status(S).
-state(health, X, S) :- person(X), health_status(S).
-state(item_property, X, S) :- item(X), item_property_status(S).
+state(owns, E, P) :- item(E), person(P).
+state(emotion, E, S) :- person(E), emotion_status(S).
+state(relation, E, S) :- person(E), E != protagonist, relation_status(S).
+state(health, E, S) :- person(E), health_status(S).
+state(item_property, E, S) :- item(E), item_property_status(S).
 % achieved: state definitions created with different status types
 
 state_at(T, E, S, V) :- state(T, E, S), vertex(V).
-% achieved: the state of an entity at a vertex is defined. Each has a type, an entity and a state description.
+% achieved: the state of an entity at a vertex is defined. Each has a type, an entity and a state.
 
 { state_at(T, E, S, V) : state(T, E, S) } = num_states_per_vertex :- vertex(V).
 % achieved: ensure a fixed number of states per vertex
@@ -40,7 +40,13 @@ state_change(T, E, S1, S2, U, V) :-
     state_at(T, E, S2, V),
     edge(U, V),
     S1 != S2,
-    not forbidden_state_change(S1, S2).
+    not forbidden_state_change(S1, S2),
+    T != owns.
+state_change(owns, I, P1, P2, U, V) :-
+    state_at(owns, I, P1, U),
+    state_at(T, I, P2, V),
+    edge(U, V),
+    P1 != P2.
 % achieved: define a state change between two connected vertices
 
 { state_change(T, E, S1, S2, U, V) : state(T, E, S1), state(T, E, S2) } = 1 :- edge(U, V).
