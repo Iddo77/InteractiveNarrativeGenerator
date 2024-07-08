@@ -2,7 +2,7 @@
 #const num_end_vertices = 5.
 #const min_path_length = 5.
 #const max_path_length = 10.
-#const num_choice_vertices = (max_path_length - min_path_length) * num_end_vertices.
+#const num_choice_vertices = (max_path_length + min_path_length) / 2 * 4.  % average path length * number of choices
 
 start_vertex(start).
 choice_vertex(C) :- C = 1..num_choice_vertices.
