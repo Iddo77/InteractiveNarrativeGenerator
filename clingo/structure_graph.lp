@@ -1,4 +1,4 @@
-% input: number of end vertices and choice vertices
+% input: number of end vertices and minimum and maximum path length
 #const num_end_vertices = 5.
 #const min_path_length = 5.
 #const max_path_length = 10.
@@ -38,10 +38,6 @@ path(X, Z, N+1) :- path(X, Y, N), edge(Y, Z), N < max_path_length.
 
 :- vertex(Y), not path(start, Y, _), Y != start.
 % achieved: every vertex is reachable from the start vertex
-
-% Since there are no cycles, and every choice-vertex has 4 outgoing edges,
-% and every end-vertex is reachable from the start,
-% this implies that every choice-vertex reaches at least 1 end-vertex.
 
 end_path_length(E, N) :- path(start, E, N), end_vertex(E).
 :- end_path_length(E, N), N < min_path_length.
