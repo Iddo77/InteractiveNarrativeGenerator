@@ -8,15 +8,18 @@ from networkx.drawing.nx_agraph import write_dot, graphviz_layout
 
 def create_structure_graph(num_models=1):
     """Use the Clingo to create the structure graph."""
-
     graphs = []
 
     def on_model(model):
-        graph_data = []
+        vertices = set()
+        edges = []
         for atom in model.symbols(shown=True):
             if atom.name == "edge" and len(atom.arguments) == 2:
-                graph_data.append((str(atom.arguments[0]), str(atom.arguments[1])))
-        graphs.append(graph_data)
+                edge = (str(atom.arguments[0]), str(atom.arguments[1]))
+                edges.append(edge)
+            if atom.name == "vertex" and len(atom.arguments) == 1:
+                vertices.add(str(atom.arguments[0]))
+        graphs.append((vertices, edges))
 
     control = clingo.Control()
     control.load("clingo/structure_graph.lp")
@@ -26,7 +29,15 @@ def create_structure_graph(num_models=1):
 
     print("Clingo Output:\n", control.statistics)  # This will print Clingo statistics
 
-    return graphs[0]
+    return graphs[-1]
+
+
+def write_vertices_and_edges(vertices, edges):
+    with open("clingo/vertices_and_edges.lp", "w") as file:
+        for vertex in vertices:
+            file.write(f"vertex({vertex}).\n")
+        for edge in edges:
+            file.write(f"edge({edge[0]},{edge[1]}).\n")
 
 
 def generate_dot(graph_data):
@@ -45,8 +56,9 @@ def generate_dot(graph_data):
 
 
 def main():
-    graph_data = create_structure_graph()
-    generate_dot(graph_data)
+    vertices, edges = create_structure_graph()
+    generate_dot(edges)
+    write_vertices_and_edges(vertices, edges)
 
 
 if __name__ == "__main__":

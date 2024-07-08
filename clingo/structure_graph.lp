@@ -44,4 +44,5 @@ end_path_length(E, N) :- path(start, E, N), end_vertex(E).
 % achieved: paths from start to end have a minimum length
 
 #show end_path_length/2.
+#show vertex/1.
 #show edge/2.
