@@ -32,16 +32,12 @@ state_at(U, T, E, S) :- state_change(U, V, T, E, S, _), edge(U, V).
 state_at(V, T, E, S) :- state_change(U, V, T, E, _, S), edge(U, V).
 % achieved: ensure the states at vertex V are derived from the states at vertex U with the state change
 
-action_at(U, V, A, E) :-
-    action(A, E),
-    state_change(U, V, _, E, _, _).
-action_at(U, V, A, E) :-
-    action(A, E),
-    state_change(U, V, _, protagonist, _, _).
-% achieved: define an action at an edge, ensuring it is allowed with specified entities
+{ action_at(U, V, A, E) : action(A, E) } :- state_change(U, V, _, E, _, _).
+{ action_at(U, V, A, E) : action(A, E) } :- state_change(U, V, _, protagonist, _, _).
+% achieved: define an action at an edge that matches the state_change for that edge
 
-% { action_at(U, V, A, E) : action(A, E) } = 1 :- edge(U, V).
-% achieved: there is only 1 action_at for each edge
+:- state_change(U, V, _, E, _, _), #count { A : action_at(U, V, A, E) } != 1.
+% achieved: there is only 1 action_at for each state change
 
 #show state_at/4.
 #show state_change/6.
