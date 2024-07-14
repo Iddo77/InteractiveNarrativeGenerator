@@ -33,6 +33,9 @@ state_at(V, T, E, S) :- state_change(U, V, T, E, _, S), edge(U, V).
 :- state_change(U, V, _, E, _, _), #count { A : action_at(U, V, A, E) } != 1.
 % achieved: there is only 1 action_at for each state change
 
+V1 = V2 :- edge(U, V1), edge(U, V2), action_at(U, V1, A, E), action_at(U, V2, A, E).
+% achieved: each combination of action and entity (A, E) is unique at each vertex U.
+
 #show state_at/4.
 #show state_change/6.
 #show action_at/4.
