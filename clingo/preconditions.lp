@@ -90,3 +90,5 @@ precondition(kill, health, injured).
 % achieved: you can only heal persons if you own a healing item
 
 
+#show has_precondition/2.
+#show precondition/3.
