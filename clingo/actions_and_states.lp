@@ -8,8 +8,6 @@
 action(talk_to, P) :- person(P).
 action(admire, P) :- person(P), P != protagonist.
 action(intimidate, P) :- person(P), P != protagonist.
-action(befriend, P) :- person(P), P != protagonist.
-action(antagonize, P) :- person(P), P != protagonist.
 action(heal, P) :- person(P).
 
 % item actions

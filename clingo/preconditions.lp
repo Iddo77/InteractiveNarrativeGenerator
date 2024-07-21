@@ -16,16 +16,10 @@
 % ------------------------------------------------
 
 has_precondition(admire, relation).
-precondition(admire, relation, likes).
+precondition(admire, relation, dislikes; neutral; likes).
 
 has_precondition(intimidate, relation).
-precondition(intimidate, relation, neutral; dislikes).
-
-has_precondition(befriend, relation).
-precondition(befriend, relation, dislikes; neutral).
-
-has_precondition(antagonize, relation).
-precondition(antagonize, relation, likes; neutral).
+precondition(intimidate, relation, dislikes; neutral; likes; loves).
 
 has_precondition(heal, health).
 precondition(heal, health, injured).
