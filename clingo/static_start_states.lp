@@ -4,9 +4,9 @@ start_state(lock, old_chest, locked).
 start_state(condition, dagger, intact).
 start_state(condition, book_of_secrets, intact).
 start_state(condition, old_map, intact).
+start_state(condition, lockpick, intact).
 start_state(condition, magic_potion, intact).
 start_state(condition, gold_coins, intact).
-start_state(condition, lockpick, intact).
 start_state(condition, staff, broken).
 start_state(condition, rusty_sword, broken).
 start_state(condition, ancient_amulet, broken).

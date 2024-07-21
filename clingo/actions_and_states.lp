@@ -24,7 +24,6 @@ action(buy, I) :- item(I).
 % actions for thieves
 action(steal, I) :- item(I).
 action(unlock, C) :- chest(C).
-action(lockpick, C) :- chest(C).
 
 % aggressive actions
 action(attack, P) :- person(P), P != protagonist.

@@ -25,7 +25,7 @@ start_state(owns, lockpick, thief).
 
 :- start_state(owns, I, protagonist), precious_item(I).
 :- start_state(owns, I, protagonist), key(I).
-:- start_state(owns, I, thief), key(I).  % the thief already has a lockpick
+:- start_state(owns, I, thief), key(I), I != lockpick.  % the thief already has a lockpick
 :- start_state(owns, I, C), key(I), chest(C).
 % achieved: some restrictions for the start state
 

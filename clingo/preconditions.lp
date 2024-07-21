@@ -77,9 +77,6 @@ precondition(kill, health, injured).
 :- action_at(U, V, unlock, C), not state_at(U, owns, K, protagonist), key(K).
 % achieved: you can only unlock chests if you own a key.
 
-:- action_at(U, V, lockpick, C), not state_at(U, owns, lockpick, protagonist).
-% achieved: you can only lockpick chests if you own a lockpick.
-
 :- action_at(U, V, attack, P), not state_at(U, owns, W, protagonist), weapon(W).
 % achieved: you can only attack persons if you own a weapon
 
