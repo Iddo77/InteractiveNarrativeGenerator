@@ -15,7 +15,6 @@ action(break, I) :- item(I).
 action(repair, I) :- item(I).
 action(take, I) :- item(I).
 action(request, I) :- item(I).
-action(sell, I) :- item(I).
 action(buy, I) :- item(I).
 
 % actions for thieves

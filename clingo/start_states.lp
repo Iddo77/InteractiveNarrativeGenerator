@@ -23,6 +23,9 @@ start_state(owns, lockpick, thief).
 { start_state(owns, I, mage) : healing_item(I) } = 1.
 % achieved: the mage owns a healing item
 
+start_state(owns, gold_coins, protagonist).
+% achieved: the protagonist owns money
+
 :- start_state(owns, I, protagonist), precious_item(I).
 :- start_state(owns, I, protagonist), key(I).
 :- start_state(owns, I, thief), key(I), I != lockpick.  % the thief already has a lockpick

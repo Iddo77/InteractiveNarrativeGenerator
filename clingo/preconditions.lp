@@ -30,9 +30,6 @@ precondition(break, condition, intact).
 has_precondition(repair, condition).
 precondition(repair, condition, broken).
 
-has_precondition(sell, owns).
-precondition(sell, owns, protagonist).
-
 has_precondition(attack, relation).
 precondition(attack, relation, neutral; dislikes; hates).
 
@@ -42,6 +39,9 @@ precondition(attack, relation, neutral; dislikes; hates).
 % ------------------------------------------------
 % COMPLEX PRECONDITIONS
 % ------------------------------------------------
+
+:- action_at(U, V, talk_to, protagonist).
+% achieved: the protagonist cannot talk to himself
 
 :- action_at(U, V, take, I), state_at(U, owns, I, E), not chest(E), not state_at(U, health, E, dead).
 % achieved: you can only take items from chests or dead persons

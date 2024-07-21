@@ -1,10 +1,14 @@
 % TALK TO
-possible_effect_at(V, talk_to, relation, E, S2) :- action_at(U, V, talk_to, P),
-    state_at(U, relation, E, S1),
-    P != protagonist,
-    S1 != S2.
-% possible effect of talk to: relationship can change
 
+possible_effect_at(V, talk_to, relation, E, likes) :- action_at(U, V, talk_to, P),
+     state_at(U, relation, E, S),
+     P != protagonist,
+     S != likes, S != hates.
+possible_effect_at(V, talk_to, relation, E, dislikes) :- action_at(U, V, talk_to, P),
+     state_at(U, relation, E, S),
+     P != protagonist,
+     S != dislikes, S != loves.
+% possible effect of talk to: relationship can change
 
 % ADMIRE
 
@@ -68,10 +72,6 @@ possible_effect_at(V, repair, condition, I, intact) :- action_at(U, V, repair, I
     state_at(U, condition, I, broken).
 % possible effect of repair: the item is repaired
 
-possible_effect_at(V, repair, condition, I, destroyed) :- action_at(U, V, repair, I),
-    state_at(U, condition, I, broken).
-% possible effect of repair: the item is destroyed
-
 % TAKE
 
 possible_effect_at(V, take, owns, I, protagonist) :- action_at(U, V, take, I),
@@ -87,18 +87,7 @@ possible_effect_at(V, request, owns, I, protagonist) :- action_at(U, V, request,
 
 possible_effect_at(V, request, relation, P, likes) :- action_at(U, V, request, I),
     state_at(U, relation, P, loves).
-% possible effect of sell: relation with owner deteriorates
-
-% SELL
-
-possible_effect_at(V, sell, owns, M, protagonist) :- action_at(U, V, sell, I),
-    state_at(U, owns, M, P), money(M), P != protagonist.
-% possible effect of sell: protagonist gets the money
-
-possible_effect_at(V, sell, owns, I, P) :- action_at(U, V, sell, I),
-    state_at(U, owns, M, P), money(M), P != protagonist.
-% possible effect of sell: person with the money gets the item
-
+% possible effect of request: relation with owner deteriorates
 
 % BUY
 
