@@ -15,7 +15,6 @@ action(heal, P) :- person(P).
 % item actions
 action(break, I) :- item(I).
 action(repair, I) :- item(I).
-action(destroy, I) :- item(I).
 action(take, I) :- item(I).
 action(request, I) :- item(I).
 action(sell, I) :- item(I).
@@ -27,7 +26,6 @@ action(unlock, C) :- chest(C).
 
 % aggressive actions
 action(attack, P) :- person(P), P != protagonist.
-action(kill, P) :- person(P), P != protagonist.
 
 % ------------------------------------------------
 % STATES

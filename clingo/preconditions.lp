@@ -42,12 +42,6 @@ precondition(sell, owns, protagonist).
 has_precondition(attack, relation).
 precondition(attack, relation, neutral; dislikes; hates).
 
-has_precondition(kill, relation).
-precondition(kill, relation, dislikes; hates).
-
-has_precondition(kill, health).
-precondition(kill, health, injured).
-
 :- action_at(U, V, A, E), state_at(U, T, E, S), has_precondition(A, T), not precondition(A, T, S).
 % achieved: if an action has a precondition, then this precondition must hold
 
@@ -79,9 +73,6 @@ precondition(kill, health, injured).
 
 :- action_at(U, V, attack, P), not state_at(U, owns, W, protagonist), weapon(W).
 % achieved: you can only attack persons if you own a weapon
-
-:- action_at(U, V, kill, P), not state_at(U, owns, W, protagonist), weapon(W).
-% achieved: you can only kill persons if you own a weapon
 
 :- action_at(U, V, heal, P), not state_at(U, owns, H, protagonist), healing_item(H).
 % achieved: you can only heal persons if you own a healing item
