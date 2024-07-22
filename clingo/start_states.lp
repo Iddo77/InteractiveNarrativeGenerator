@@ -32,11 +32,6 @@ start_state(owns, gold_coins, protagonist).
 :- start_state(owns, I, C), key(I), chest(C).
 % achieved: some restrictions for the start state
 
-{ start_state(emotion, P, E) : emotion_state(E) } = 1 :- person(P).
-{ start_state(emotion, P, happy) : person(P) } = 4.
-start_state(emotion, protagonist, happy).
-% achieved: in the start state every person has 1 emotion; 4 of them are happy, including the protagonist.
-
 { start_state(relation, P, R) : relation_state(R) } = 1 :- person(P), P != protagonist.
 % achieved: in the start state every person has 1 relation to the protagonist
 

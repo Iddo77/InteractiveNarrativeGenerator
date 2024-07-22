@@ -29,9 +29,8 @@ action(attack, P) :- person(P), P != protagonist.
 % ------------------------------------------------
 
 % state types
-state_type(owns; emotion; relation; health; condition; lock).
+state_type(owns; relation; health; condition; lock).
 health_state(healthy; injured; dead).
-emotion_state(happy; angry; sad; scared; surprised).
 relation_state(hates; dislikes; neutral; likes; loves).
 condition_state(intact; broken; destroyed).
 lock(locked; unlocked).
@@ -39,7 +38,6 @@ lock(locked; unlocked).
 % states of entities
 state(owns, E, P) :- item(E), person(P).
 state(owns, E, C) :- item(E), chest(C).
-state(emotion, E, S) :- person(E), emotion_state(S).
 state(relation, E, S) :- person(E), E != protagonist, relation_state(S).
 state(health, E, S) :- person(E), health_state(S).
 state(condition, E, S) :- item(E), condition_state(S).
