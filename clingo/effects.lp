@@ -51,11 +51,11 @@ possible_effect_at(V, heal, relation, P, loves) :- action_at(U, V, heal, P),
 % BREAK
 
 possible_effect_at(V, break, condition, I, broken) :- action_at(U, V, break, I),
-    state_at(U, condition, I, intact).
+    state_at(U, condition, I, intact), not money(I).
 % possible effect of break: the item is broken
 
 possible_effect_at(V, break, condition, I, destroyed) :- action_at(U, V, break, I),
-    state_at(U, condition, I, broken).
+    state_at(U, condition, I, broken), not money(I).
 % possible effect of break: the item is broken
 
 possible_effect_at(V, break, relation, Owner, dislikes) :- action_at(U, V, break, I),

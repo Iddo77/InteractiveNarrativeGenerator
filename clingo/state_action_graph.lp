@@ -2,6 +2,7 @@
 #include "actions_and_states.lp".
 #include "static_start_states.lp".
 #include "preconditions.lp".
+#include "effects.lp".
 
 % ------------------------------------------------
 % ASSIGN START-STATES
@@ -34,16 +35,24 @@ V1 = V2:- action_at(U, V1, A, E), action_at(U, V2, A, E).
 % ASSIGN STATES TO EACH VERTEX
 % ------------------------------------------------
 
-affected_entity(U, T, E) :- action_at(U, _, _, E), state_at(U, T, E, _).
-% achieved: an entity is directly affected by an action
-affected_entity(U, T, O) :- action_at(U, _, _, I), item(I), state_at(U, owns, I, O), state_at(U, T, O, _), person(O).
-% achieved: the owner of an item is affected by action on the item
-state_at(V, T, E, S) :-  state_at(U, T, E, S), not affected_entity(U, T, E), edge(U, V).
-% achieved: copy states unaffected by an action
+1 { effect_at(V, A, T, E, S) : possible_effect_at(V, A, T, E, S)  } 2 :- action_at(U, V, A, _).
+% achieved: choose 1 or 2 effects out of all possible effects for an action-at
 
-state_type_entity_combo(T, E) :- state(T, E, _).
-{ state_at(U, T, E, S) : state(T, E, S) } = 1 :- vertex(U), state_type_entity_combo(T, E).
-% achieved: for every state-type/entity combination, a state is assigned to each vertex
+S1 = S2 :- effect_at(V, A, T, E, S1), effect_at(V, A, T, E, S2).
+% achieved: effects cannot only differ in state-value
+
+S1 = S2 :- state_at(V, T, E, S1), state_at(V, T, E, S2).
+% achieved: states cannot only differ in state-value
+
+state_at(V, T, E, S) :- effect_at(V, A, T, E, S).
+% achieved: effects change the state
+
+state_type_entity_combo(T, E) :- state(T, E, S).
+% achieved: get all allowed combinations of state-type and entity
+affected_entity(V, T, E) :- effect_at(V, A, T, E, S).
+% achieved: collect all entities affected by an action
+unaffected_entity(V, T, E) :- edge(U, V), not affected_entity(V, T, E),  state_type_entity_combo(T, E).
+% achieved: collect all entities not affected by an action
 
 % ------------------------------------------------
 % STATE CHANGES
