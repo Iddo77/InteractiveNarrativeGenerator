@@ -81,6 +81,10 @@ state_change(U, V, T, E, S1, S2) :-
     S1 != S2.
 % achieved: define a state change between two connected vertices
 
+:- edge(U, V), #count { (T, E, S1, S2) : state_change(U, V, T, E, S1, S2) } > 3.
+:- edge(U, V), #count { (T, E, S1, S2) : state_change(U, V, T, E, S1, S2) } < 1.
+% achieved: there are between 1 and 3 state changes for every edge
+
 #show action_at/4.
 #show state_at/4.
 #show state_change/6.
