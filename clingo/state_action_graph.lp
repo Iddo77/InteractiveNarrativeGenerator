@@ -53,6 +53,13 @@ affected_entity(V, T, E) :- effect_at(V, A, T, E, S).
 % achieved: collect all entities affected by an action
 unaffected_entity(V, T, E) :- edge(U, V), not affected_entity(V, T, E),  state_type_entity_combo(T, E).
 % achieved: collect all entities not affected by an action
+unaffected_state(V, T, E, S) :- state_at(U, T, E, S),  edge(U, V), unaffected_entity(V, T, E).
+% achieved: get all possible states for unaffected entities
+{ selected_unaffected_state(V, T, E, S) : unaffected_state(V, T, E, S) } = 1 :- edge(_, V),
+    unaffected_state(V, T, E, _).
+% achieved: select 1 state for each unaffected entity
+state_at(V, T, E, S) :- selected_unaffected_state(V, T, E, S).
+% achieved: set the state to the selection
 
 % ------------------------------------------------
 % STATE CHANGES
@@ -69,4 +76,9 @@ state_change(U, V, T, E, S1, S2) :-
 #show action_at/4.
 #show state_at/4.
 #show state_change/6.
+#show possible_effect_at/5.
+#show effect_at/5.
 #show affected_entity/3.
+#show unaffected_entity/3.
+#show unaffected_state/4.
+#show edge/2.
