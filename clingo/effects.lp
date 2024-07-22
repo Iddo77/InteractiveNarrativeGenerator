@@ -1,11 +1,11 @@
 % TALK TO
 
-possible_effect_at(V, talk_to, relation, E, likes) :- action_at(U, V, talk_to, P),
-     state_at(U, relation, E, S),
+possible_effect_at(V, talk_to, relation, P, likes) :- action_at(U, V, talk_to, P),
+     state_at(U, relation, P, S),
      P != protagonist,
      S != likes, S != hates.
-possible_effect_at(V, talk_to, relation, E, dislikes) :- action_at(U, V, talk_to, P),
-     state_at(U, relation, E, S),
+possible_effect_at(V, talk_to, relation, P, dislikes) :- action_at(U, V, talk_to, P),
+     state_at(U, relation, P, S),
      P != protagonist,
      S != dislikes, S != loves.
 % possible effect of talk to: relationship can change
