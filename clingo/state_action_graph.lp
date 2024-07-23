@@ -3,6 +3,7 @@
 #include "static_start_states.lp".
 #include "preconditions.lp".
 #include "effects.lp".
+#include "end_states.lp".
 
 % ------------------------------------------------
 % ASSIGN START-STATES
@@ -95,3 +96,5 @@ state_change(U, V, T, E, S1, S2) :-
 #show unaffected_state/4.
 #show unaffected_state_count/5.
 #show most_common_unaffected_state/4.
+#show side_effect/5.
+#show causal_effect/3.
