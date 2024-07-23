@@ -16,10 +16,15 @@
 % ------------------------------------------------
 
 has_precondition(admire, relation).
-precondition(admire, relation, dislikes; neutral; likes).
+precondition(admire, relation, dislikes).
+precondition(admire, relation, neutral).
+precondition(admire, relation, likes).
 
 has_precondition(intimidate, relation).
-precondition(intimidate, relation, dislikes; neutral; likes; loves).
+precondition(intimidate, relation, dislike).
+precondition(intimidate, relation, neutral).
+precondition(intimidate, relation, likes).
+precondition(intimidate, relation, loves).
 
 has_precondition(heal, health).
 precondition(heal, health, injured).
@@ -31,7 +36,9 @@ has_precondition(repair, condition).
 precondition(repair, condition, broken).
 
 has_precondition(attack, relation).
-precondition(attack, relation, neutral; dislikes; hates).
+precondition(attack, relation, neutral).
+precondition(attack, relation, dislikes).
+precondition(attack, relation, hates).
 
 :- action_at(U, V, A, E), state_at(U, T, E, S), has_precondition(A, T), not precondition(A, T, S).
 % achieved: if an action has a precondition, then this precondition must hold
