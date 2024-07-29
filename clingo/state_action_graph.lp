@@ -72,7 +72,7 @@ most_common_unaffected_state(V, T, E, S) :- unaffected_state_count(V, T, E, S, N
 % achieved: select 1 state for each unaffected entity
 
 % ------------------------------------------------
-% STATE CHANGES
+% MINIMIZE STATE CHANGES
 % ------------------------------------------------
 
 state_change(U, V, T, E, S1, S2) :-
